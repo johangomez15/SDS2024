@@ -1,20 +1,5 @@
 ---
-title: "Homework 2 File"
-author: "Johan Gomez - SDS 313 UT Austin"
-output:
-  html_document: default
----
-
-```{r global_options, echo=FALSE}
-knitr::opts_chunk$set(fig.height=4, fig.width=6, warning=FALSE, tidy=TRUE, echo=FALSE, tidy.opts=list(width.cutoff=60))
-```
-
-------------------------------------------------------------------------
-
-```{r libraries, include=FALSE}
-library(ggplot2)
-library(tidyverse)
-library(kableExtra)
+I deleted all this stuff big DAWG. Let that boy eat let him munch.
 library(RColorBrewer)
 ```
 
@@ -42,10 +27,7 @@ leprosy_ggplot + geom_histogram(aes(x= Cases_per_100k), bins = 40) + labs( title
 
 The mean of the graph of Cases per 100 thousand is `r round(mean(leprosy$Cases_per_100k, na.rm = TRUE),2)` and the standard deviation of the graph is `r round(sd(leprosy$Cases_per_100k, na.rm = TRUE),2)`. The graph above is skewed to the right with some far outliers.
 
-# **Question 3**
-
-In a single plot output, create a graph (or set of graphs) that shows the distribution of cases per 100K within each region. Output a nicely formatted table (hint: you could choose to use the kbl() function from the kableExtra R package) that provides the name, number of districts (i.e. number of countries/rows within that region), and median cases per 100K for each region. Include a short paragraph summarizing any differences in leprosy prevalence across regions.
-
+You dont need question 3 big DAWG.
 ```{r}
 data_table_leprosy <- leprosy %>% group_by(Region) %>% 
   summarise(total_country = n(),
