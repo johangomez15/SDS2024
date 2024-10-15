@@ -22,6 +22,9 @@ library(RColorBrewer)
 leprosy=read.csv("Homework2_Leprosy.csv")
 
 ```
+Today we are practicing GitHub ediitng changes. 
+
+We are going to practice making these changes. 
 
 # **Question 1**
 
