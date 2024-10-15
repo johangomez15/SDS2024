@@ -1,0 +1,87 @@
+---
+title: "Homework 2 File"
+author: "Johan Gomez - SDS 313 UT Austin"
+output:
+  html_document: default
+---
+
+```{r global_options, echo=FALSE}
+knitr::opts_chunk$set(fig.height=4, fig.width=6, warning=FALSE, tidy=TRUE, echo=FALSE, tidy.opts=list(width.cutoff=60))
+```
+
+------------------------------------------------------------------------
+
+```{r libraries, include=FALSE}
+library(ggplot2)
+library(tidyverse)
+library(kableExtra)
+library(RColorBrewer)
+```
+
+```{r}
+leprosy=read.csv("Homework2_Leprosy.csv")
+
+```
+
+# **Question 1**
+
+Which country had the highest number of new leprosy cases in 2022? Why is it not a fair comparison to look at the raw number of cases when comparing prevalence of the disease across different countries?
+
+The country with the highest number of new leprosy cases in 2022 is India with 103819 cases. It is not a fair comparison to compare across different countries because they have a wide range in population, so countries with a higher population are bound to have more cases.
+
+```{r}
+leprosy_max = max(leprosy$New_Cases, na.rm = TRUE)
+
+leprosy[leprosy$New_Cases == leprosy_max & is.na(leprosy$New_Cases) == FALSE,]
+
+```
+
+# **Question 2**
+
+Create a new variable in the dataset that provides the leprosy cases per 100K people in each country. Graph this new variable’s distribution and provide the relevant summary statistics inline within a short paragraph describing the distribution.
+
+```{r}
+leprosy$Cases_per_100k <- ((leprosy$New_Cases/leprosy$Population)*100000)
+leprosy_ggplot <- ggplot(leprosy)
+leprosy_ggplot + geom_histogram(aes(x= Cases_per_100k), bins = 40) + labs( title = 'Leprosy Cases per 100k', x='Cases per 100k', y='Frequency')
+
+```
+
+The mean of the graph of Cases per 100 thousand is `r round(mean(leprosy$Cases_per_100k, na.rm = TRUE),2)` and the standard deviation of the graph is `r round(sd(leprosy$Cases_per_100k, na.rm = TRUE),2)`. The graph above is skewed to the right with some far outliers.
+
+# **Question 3**
+
+In a single plot output, create a graph (or set of graphs) that shows the distribution of cases per 100K within each region. Output a nicely formatted table (hint: you could choose to use the kbl() function from the kableExtra R package) that provides the name, number of districts (i.e. number of countries/rows within that region), and median cases per 100K for each region. Include a short paragraph summarizing any differences in leprosy prevalence across regions.
+
+```{r}
+data_table_leprosy <- leprosy %>% group_by(Region) %>% 
+  summarise(total_country = n(),
+            leprosy_median = median(Cases_per_100k, na.rm = TRUE))
+kable_classic_2(kbl(data_table_leprosy))
+
+leprosy_ggplot + geom_histogram(aes(x=Cases_per_100k), bins = 30,col='black',fill='dark red')  + labs(title='Leprosy Cases by Region',x='Leprosy Cases per 100k',y='Frequency') + theme(legend.position='bottom') + scale_fill_brewer(type='qual',palette=2) + facet_wrap(~Region)
+
+```
+
+We are able to see graphs of leprosy cases per 100k in the different regions of the world. All of the graphs look very similar but we are able to notice some outliers in the graphs of the Middle East and Africa. All of the graphs are skewed to the right.
+
+# **Question 4**
+
+Investigate the relationship between cases per 100K and one of the other variables in the dataset (other than region) by making the appropriate bivariate graph and providing the relevant summary statistic inline within a short paragraph describing the relationship.
+
+```{r}
+leprosy_ggplot + geom_point(aes(x=Cases_per_100k , y=Land_Area)) + labs(title='Relationship of Leprosy cases vs Land area', x='Leprosy Cases (per 100k) ', y='Land Area')
+
+```
+
+The correlation of the graph is `r round(cor(leprosy$Cases_per_100k, leprosy$Land_Area, use = "complete.obs"), 2)`. With the low correlation we can tell there is not a strong relationship. The land area will not affect the leprosy cases per 100 thousand.
+
+# **Question 5**
+
+Write a brief conclusion to your analysis summarizing what you found. Include a hyperlink to the website for the International Leprosy Association for readers wanting more information about this disease.
+
+In the first problem we learned that India has the highest amount of new leprosy cases however it is not fair to compare the number of new cases by countries because the countries all have different populations. In the second question we figured out the frequency of new cases per 100k people. In the third question we graphed leprosy cases per 100k in the different regions and we saw some differences and similarities between the graphs. In question 4 we tested the relationship between cases per 100k and Land area to see if there was a connection but we came to the conclusion that there is not a relationship. From the Data we were able to learn a lot about Leprosy all around the world.Go [here](https://leprosyhistory.org/) to learn more about leprosy.
+
+```{r}
+
+```
