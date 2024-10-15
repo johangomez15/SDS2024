@@ -26,18 +26,8 @@ Today we are practicing GitHub ediitng changes.
 
 We are going to practice making these changes. 
 
-# **Question 1**
-
-Which country had the highest number of new leprosy cases in 2022? Why is it not a fair comparison to look at the raw number of cases when comparing prevalence of the disease across different countries?
-
-The country with the highest number of new leprosy cases in 2022 is India with 103819 cases. It is not a fair comparison to compare across different countries because they have a wide range in population, so countries with a higher population are bound to have more cases.
-
-```{r}
-leprosy_max = max(leprosy$New_Cases, na.rm = TRUE)
-
-leprosy[leprosy$New_Cases == leprosy_max & is.na(leprosy$New_Cases) == FALSE,]
-
-```
+I deleted Question 1
+I should add some function but not a for loop because its hard. 
 
 # **Question 2**
 
